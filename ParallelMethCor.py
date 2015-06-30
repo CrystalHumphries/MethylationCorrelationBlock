@@ -5,11 +5,14 @@ import pandas as pd
 from scipy.stats import pearsonr
 import numpy as np
 from multiprocessing import Process
+import sys
 
 distance = [100,300,500, 1000, 5000, 10000, 15000, 20000, 30000, 40000, 50000, 100000]
-betaFile = '/isb/chumphri/CpG_Correlation/batchCorrelatedMeth.txt'
-f = '/isb/chumphri/CpG_Correlation/Blocks_correlation_info.txt'
-print "hello"
+#betaFile = '/isb/chumphri/CpG_Correlation/batchCorrelatedMeth.txt'
+#f = '/isb/chumphri/CpG_Correlation/Blocks_correlation_info.txt'
+
+betaFile = sys.argv[1] #contains the beta values
+f        = sys.argv[2] #contains distance information between CpG Sites
 
 def get_correl (CpG, List):
     new = []
@@ -50,8 +53,6 @@ def grab_CpG_sites(chr, dist, init_loc, interval):
 
 def main_stuff(start, end, name, proc):
     myfile = open(name, 'w')
-#    with open (name, "a")  as myfile:
-        #CpGList = df.CpGSites[start:end]
     CpGList  = list_temp[start:end]
     print name
     print len(CpGList)
@@ -86,14 +87,6 @@ beta = pd.io.parsers.read_table(betaFile)
 df =  df.loc[df['CpGSites'].isin(beta.index)]
 list_temp = df.CpGSites
 
-#p = "/Users/chumphri/Projects/MethylationLD/DataAnalysis/Correlation_real.txt", "a" "" #as myfile:
-#p = Process(target=main_stuff, args=(0,10,"process1",))
-#p.start()
-#p2 = Process(target=main_stuff, args=(11,20,"process2",))
-#p2.start()
-#p.join()
-#p2.join()
-
 start = 0
 file_list = []
 processes = []
@@ -106,7 +99,6 @@ for a in range(1,11):
     temp_start = start + 1
     p = Process(target=main_stuff, args=(temp_start, stop, temp_file, a))
     p.start()
-#    p.join()
     start   = stop
     file_list.append(temp_file)
     processes.append(p)
