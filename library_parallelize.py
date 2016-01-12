@@ -10,7 +10,7 @@ import os
 
 methPos = pd.read_csv("/isb/chumphri/MethylationPOP/temp_MethPos_file.txt", sep="\t")
 
-def get_90_var(array):
+def get_95_var(array):
     total = 0
     pos = 0
     for x in array:
@@ -55,7 +55,7 @@ def get_location(CpG):
 def run_pca(genotype_matrix):
     pca              = decomposition.PCA()
     pca.fit(genotype_matrix)
-    top95percent_PC  = get_90_var(pca.explained_variance_ratio_)
+    top95percent_PC  = get_95_var(pca.explained_variance_ratio_)
     pca.n_components = top95percent_PC
     X_reduced        = pca.fit_transform(genotype_matrix)
     PCA_matrix       = pd.DataFrame(X_reduced)
