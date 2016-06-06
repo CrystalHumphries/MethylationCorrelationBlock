@@ -74,7 +74,7 @@ def run_main(new_file, start, stop, dat):
                 if flag == 'F':
                     continue
                 genotype_matrix = get_genotypes(CpG_location)
-                genotype_matrix = imp.transform(genotype_matrix)
+                #genotype_matrix = imp.transform(genotype_matrix)
                 genotype_matrix = genotype_matrix.transpose()
         
     
