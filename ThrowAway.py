@@ -64,6 +64,9 @@ def run_pca(genotype_matrix):
 def run_main(new_file, start, stop, dat):
     with open(new_file, 'a') as file:
         imp = Imputer(missing_values='NaN', strategy='most_frequent', axis=1)
+        
+        
+        
         import itertools
         with open(dat, "r") as text_file:
             for line in itertools.islice(text_file, start, stop):
