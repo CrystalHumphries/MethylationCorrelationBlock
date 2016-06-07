@@ -85,7 +85,8 @@ def run_main(new_file, start, stop, dat):
                     continue
 
                 #run linear regression
-                meth_values = pd.Series(methylation_levels, name="meth_val", dtype=float)
+                meth_values = pd.Series(methylation_levels, 
+                                        name="meth_val", dtype=float)
                 model = sm.OLS(meth_values, PCA_matrix)
                 results = model.fit()
                 
