@@ -31,7 +31,7 @@ def get_genotypes(CpG_location):
     for record in records:
         df.loc[num] = record[3:]
         num        += 1
-    return(df)
+    return(df.transpose())
         
 def get_location(CpG):
     e = methPos.loc[ methPos['geneID']==CpG]
@@ -76,7 +76,6 @@ def run_main(new_file, start, stop, dat):
                 
                 CpG_location = get_location(CpG)
                 genotype_matrix = get_genotypes(CpG_location)
-                genotype_matrix = genotype_matrix.transpose()
 
                  #run PCA
                 try:
