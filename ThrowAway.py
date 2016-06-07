@@ -89,11 +89,10 @@ def run_main(new_file, start, stop, dat):
                                         name="meth_val", dtype=float)
                 model = sm.OLS(meth_values, PCA_matrix)
                 results = model.fit()
-                
-                
-                
-                
                 MethValResids = results.resid
+                
+                
+                
                 final         = pd.Series(CpG)
                 final         = final.append(MethValResids)
                 fline         = final.tolist()
