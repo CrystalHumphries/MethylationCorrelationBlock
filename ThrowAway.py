@@ -70,25 +70,25 @@ def run_main(new_file, start, stop, dat):
                 line            = line.replace("NA", "NaN")
                 content         = line.rstrip('\n').split('\t')
                 CpG             = content.pop(0)
-                flag, CpG_location    = get_location(CpG)
-                if flag == 'F':
-                    continue
+                
+                CpG_location    = get_location(CpG)
                 genotype_matrix = get_genotypes(CpG_location)
-                #genotype_matrix = imp.transform(genotype_matrix) Changed to imputer for genotypes prior to running this analyses
                 genotype_matrix = genotype_matrix.transpose()
-        
-    
+
                  #run PCA
                 try:
                     PCA_matrix      = run_pca(genotype_matrix)
                 except ValueError:
-                    print "value error"
                     continue
 
                 #run linear regression
-                meth_values   = pd.Series(content, name="meth_val", dtype=float)
+                meth_values   = pd.Series(methylation_levels, name="meth_val", dtype=float)
                 model         = sm.OLS(meth_values, PCA_matrix)
                 results       = model.fit()
+                
+                
+                
+                
                 MethValResids = results.resid
                 final         = pd.Series(CpG)
                 final         = final.append(MethValResids)
