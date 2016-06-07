@@ -74,20 +74,20 @@ def run_main(new_file, start, stop, dat):
                 content         = line.rstrip('\n').split('\t')
                 CpG             = content.pop(0)
                 
-                CpG_location    = get_location(CpG)
+                CpG_location = get_location(CpG)
                 genotype_matrix = get_genotypes(CpG_location)
                 genotype_matrix = genotype_matrix.transpose()
 
                  #run PCA
                 try:
-                    PCA_matrix      = run_pca(genotype_matrix)
+                    PCA_matrix = run_pca(genotype_matrix)
                 except ValueError:
                     continue
 
                 #run linear regression
-                meth_values   = pd.Series(methylation_levels, name="meth_val", dtype=float)
-                model         = sm.OLS(meth_values, PCA_matrix)
-                results       = model.fit()
+                meth_values = pd.Series(methylation_levels, name="meth_val", dtype=float)
+                model = sm.OLS(meth_values, PCA_matrix)
+                results = model.fit()
                 
                 
                 
